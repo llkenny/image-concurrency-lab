@@ -10,11 +10,7 @@ import SwiftUI
 struct ImageRow: View {
 
     let url: URL
-
     @State private var image: Image?
-    @State private var isLoading = false
-    @State private var task: Task<Void, Never>?
-    
     private let provider = ImageDataProvider.shared
 
     var body: some View {
@@ -29,15 +25,12 @@ struct ImageRow: View {
         }
         .onAppear {
             guard image == nil else { return }
-
-            isLoading = true
-
-            task = Task {
-                if let data = try? await provider.fetch(url: url) {
-                    let uiImage = UIImage(data: data)
-                    image = Image(uiImage: uiImage!)
+            Task {
+                guard let data = try? await provider.fetch(url: url),
+                      let uiImage = UIImage(data: data) else {
+                    return
                 }
-                isLoading = false
+                image = Image(uiImage: uiImage)
             }
         }
     }

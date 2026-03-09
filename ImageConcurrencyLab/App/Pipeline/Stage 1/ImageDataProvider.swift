@@ -29,7 +29,8 @@ final class ImageDataProvider {
         // Latency emulation
         try await Task.sleep(for: Self.latency)
         
-        let symbol = Self.symbols.randomElement() ?? "star"
+        let index = abs(url.absoluteString.hashValue) % Self.symbols.count
+        let symbol = Self.symbols[index]
         if let data = try generatePngData(for: symbol) {
             return data
         } else {
