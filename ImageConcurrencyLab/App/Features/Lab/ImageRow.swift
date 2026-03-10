@@ -10,8 +10,9 @@ import SwiftUI
 struct ImageRow: View {
 
     let url: URL
+    let loader: ImageLoading
+    
     @State private var image: Image?
-    private let provider = ImageDataProvider.shared
 
     var body: some View {
         ZStack {
@@ -26,7 +27,7 @@ struct ImageRow: View {
         .onAppear {
             guard image == nil else { return }
             Task {
-                guard let data = try? await provider.fetch(url: url),
+                guard let data = try? await loader.load(url),
                       let uiImage = UIImage(data: data) else {
                     return
                 }
