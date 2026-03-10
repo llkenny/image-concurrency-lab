@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		504E8BF92F6071B100EB609A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 504E8BED2F6071B100EB609A /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		50406D982F5DE49200DDDBE5 /* ImageConcurrencyLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageConcurrencyLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		504E8BED2F6071B100EB609A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -34,6 +39,7 @@
 			children = (
 				50406D9A2F5DE49200DDDBE5 /* ImageConcurrencyLab */,
 				50406D992F5DE49200DDDBE5 /* Products */,
+				504E8BED2F6071B100EB609A /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504E8BF92F6071B100EB609A /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
