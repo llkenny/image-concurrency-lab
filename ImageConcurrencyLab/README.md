@@ -4,3 +4,6 @@ SwiftUI performance lab that demonstrates how image-loading pipeline decisions a
 
 ## Stage 1
 Stage 1 uses row-local state and row-driven loading. Each row starts its own fetch when it appears. There is no shared cache, no in-flight deduplication, and no cancellation. As a result, repeated scrolling causes duplicate fetches and placeholder churn when rows are recreated.
+
+## Stage 2
+Stage 2 adds a completed-data cache and in-flight deduplication. Repeated scrolling no longer causes duplicate fetches, and already fetched images are served from the cache.

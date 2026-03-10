@@ -11,7 +11,7 @@ import SwiftUI
 struct ImageConcurrencyLabApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LabView()
         }
     }
 }
