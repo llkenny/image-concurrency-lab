@@ -10,13 +10,15 @@ import SwiftUI
 struct LabView: View {
 
     @State private var selectedStage: PipelineMode = .stage1Naive
-    @State private var imageLoader: ImageLoading = PipelineFactory.make(mode: .stage1Naive)
+    @State private var imageLoader: any ImageLoading = PipelineFactory.make(mode: .stage1Naive)
+    private let imageCount = 200
     
     var body: some View {
         NavigationStack {
-            List(0..<200, id: \.self) { index in
-                ImageRow(url: URL(string: "https://example.com/image/\(index).jpg")!, loader: imageLoader)
-                    .frame(height: 64)
+            List(0..<imageCount, id: \.self) { index in
+                ImageRow(url: URL(string: "https://example.com/image/\(index).jpg")!,
+                         loader: imageLoader)
+                    .frame(height: 120)
             }
             .id(selectedStage)
             .toolbar {
@@ -27,11 +29,11 @@ struct LabView: View {
                         }
                     }
                     .pickerStyle(.menu)
-                    .onChange(of: selectedStage) { _, newValue in
-                        imageLoader = PipelineFactory.make(mode: newValue)
-                    }
                 }
             }
+        }
+        .onChange(of: selectedStage) { _, newValue in
+            imageLoader = PipelineFactory.make(mode: newValue)
         }
     }
 }
