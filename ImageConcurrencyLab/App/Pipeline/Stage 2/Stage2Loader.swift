@@ -38,15 +38,20 @@ extension Stage2Loader: ImageLoading {
         if let task = inFlightTasks[url] {
             return try await task.value
         }
-        let task = Task {
-            defer {
-                inFlightTasks[url] = nil
-            }
-            let data = try await provider.fetch(url: url)
-            await cache.set(url, data: data)
-            return data
+        
+        let task = Task<Data, Error> {
+            try await provider.fetch(url: url)
         }
         inFlightTasks[url] = task
-        return try await task.value
+        
+        do {
+            let data = try await task.value
+            await cache.set(url, data: data)
+            inFlightTasks[url] = nil
+            return data
+        } catch {
+            inFlightTasks[url] = nil
+            throw error
+        }
     }
 }
