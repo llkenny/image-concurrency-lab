@@ -7,3 +7,6 @@ Stage 1 uses row-local state and row-driven loading. Each row starts its own fet
 
 ## Stage 2
 Stage 2 adds a completed-data cache and in-flight deduplication. Repeated scrolling no longer causes duplicate fetches, and already fetched images are served from the cache.
+
+## Stage 3
+Stage 3 introduces a global concurrency limiter. New fetch work is bounded by a fixed limit, reducing task explosion and stabilizing CPU and I/O pressure. Cache hits and in-flight shared requests bypass the limiter.

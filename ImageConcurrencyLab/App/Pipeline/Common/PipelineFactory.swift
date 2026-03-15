@@ -7,11 +7,15 @@
 
 enum PipelineFactory {
     static func make(mode: PipelineMode) -> any ImageLoading {
-        switch mode {
+        return switch mode {
             case .stage1Naive:
-                return Stage1Loader(provider: ImageDataProvider())
+                Stage1Loader(provider: ImageDataProvider())
             case .stage2SingleFlight:
-                return Stage2Loader(provider: ImageDataProvider(), cache: ImageCache())
+                Stage2Loader(provider: ImageDataProvider(), cache: ImageCache())
+            case .stage3ConcurrencyLimit:
+                Stage3Loader(provider: ImageDataProvider(),
+                             cache: ImageCache(),
+                             limiter: .init(limit: 6))
             default:
                 fatalError("Not implemented")
         }
