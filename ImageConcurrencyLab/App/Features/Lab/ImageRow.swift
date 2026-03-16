@@ -9,10 +9,9 @@ import SwiftUI
 
 struct ImageRow: View {
 
-    let url: URL
-    let loader: ImageLoading
-    
-    @State private var image: Image?
+    let image: Image?
+    let onRowAppear: () -> Void
+    let onRowDisappear: () -> Void
 
     var body: some View {
         ZStack {
@@ -24,15 +23,7 @@ struct ImageRow: View {
                 Rectangle().fill(.gray.opacity(0.2))
             }
         }
-        .onAppear {
-            guard image == nil else { return }
-            Task {
-                guard let data = try? await loader.load(url),
-                      let uiImage = UIImage(data: data) else {
-                    return
-                }
-                image = Image(uiImage: uiImage)
-            }
-        }
+        .onAppear(perform: onRowAppear)
+        .onDisappear(perform: onRowDisappear)
     }
 }

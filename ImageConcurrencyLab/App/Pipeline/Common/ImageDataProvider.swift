@@ -14,7 +14,7 @@ final class ImageDataProvider {
         case noData
     }
     
-    private static let latency: ContinuousClock.Instant.Duration = .milliseconds(200)
+    private static let latency: ContinuousClock.Instant.Duration = .milliseconds(2000)
     private static let symbols = [
         "star", "heart", "bolt", "flame", "leaf", "bell", "bookmark", "paperplane",
         "cloud", "moon", "sun.max", "hare", "tortoise", "car", "bicycle", "tram",

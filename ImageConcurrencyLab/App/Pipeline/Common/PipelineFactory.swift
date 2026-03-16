@@ -16,6 +16,10 @@ enum PipelineFactory {
                 Stage3Loader(provider: ImageDataProvider(),
                              cache: ImageCache(),
                              limiter: .init(limit: 6))
+            case .stage4VisibleFirst:
+                Stage4Loader(provider: ImageDataProvider(),
+                             cache: ImageCache(),
+                             limiter: .init(limit: 6))
             default:
                 fatalError("Not implemented")
         }
