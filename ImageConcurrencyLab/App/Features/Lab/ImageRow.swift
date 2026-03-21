@@ -27,11 +27,17 @@ struct ImageRow: View {
         .onAppear {
             guard image == nil else { return }
             Task {
+                await loader.markVisible(url)
                 guard let data = try? await loader.load(url),
                       let uiImage = UIImage(data: data) else {
                     return
                 }
                 image = Image(uiImage: uiImage)
+            }
+        }
+        .onDisappear {
+            Task {
+                await loader.markPrefetch(url)
             }
         }
     }

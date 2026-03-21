@@ -10,3 +10,7 @@ Stage 2 adds a completed-data cache and in-flight deduplication. Repeated scroll
 
 ## Stage 3
 Stage 3 introduces a global concurrency limiter. New fetch work is bounded by a fixed limit, reducing task explosion and stabilizing CPU and I/O pressure. Cache hits and in-flight shared requests bypass the limiter.
+
+## Stage 4
+Stage 4 introduces visible-first admission.
+Requests are split into visible and prefetch queues, and the loader always starts visible requests before prefetch requests when a slot becomes available.

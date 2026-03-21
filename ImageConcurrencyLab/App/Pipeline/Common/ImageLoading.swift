@@ -9,4 +9,14 @@ import Foundation
 
 protocol ImageLoading: Sendable {
     func load(_ url: URL) async throws -> Data
+    
+    // Stage 4+
+    func markVisible(_ url: URL) async
+    func markPrefetch(_ url: URL) async
+}
+
+extension ImageLoading {
+    
+    func markVisible(_ url: URL) async {}
+    func markPrefetch(_ url: URL) async {}
 }
