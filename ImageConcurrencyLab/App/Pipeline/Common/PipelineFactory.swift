@@ -6,7 +6,10 @@
 //
 
 enum PipelineFactory {
+    static var currentMode: PipelineMode = .stage1Naive
+    
     static func make(mode: PipelineMode) -> any ImageLoading {
+        currentMode = mode
         return switch mode {
             case .stage1Naive:
                 Stage1Loader(provider: ImageDataProvider())
@@ -20,6 +23,8 @@ enum PipelineFactory {
                 Stage4Loader(provider: ImageDataProvider(), cache: ImageCache())
             case .stage5Cancellation:
                 Stage5Loader(provider: ImageDataProvider(), cache: ImageCache())
+            case .stage6BackgroundDecode:
+                Stage6Loader(provider: ImageDataProvider(), cache: Stage6ImageCache())
             default:
                 fatalError("Not implemented")
         }

@@ -17,6 +17,7 @@
 			membershipExceptions = (
 				"App/Pipeline/Stage 4/RFC.md",
 				"App/Pipeline/Stage 5/RFC.md",
+				"App/Pipeline/Stage 6/RFC.md",
 			);
 			target = 50406D972F5DE49200DDDBE5 /* ImageConcurrencyLab */;
 		};

@@ -28,11 +28,17 @@ struct ImageRow: View {
             guard image == nil else { return }
             Task {
                 await loader.markVisible(url)
-                guard let data = try? await loader.load(url),
-                      let uiImage = UIImage(data: data) else {
-                    return
+                
+                switch PipelineFactory.currentMode {
+                    case .stage6BackgroundDecode:
+                        image = try await loader.load(url)
+                    default:
+                        guard let data: Data = try? await loader.load(url),
+                              let uiImage = UIImage(data: data) else {
+                            return
+                        }
+                        image = Image(uiImage: uiImage)
                 }
-                image = Image(uiImage: uiImage)
             }
         }
         .onDisappear {

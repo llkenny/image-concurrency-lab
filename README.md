@@ -17,3 +17,7 @@ Requests are split into visible and prefetch queues, and the loader always start
 
 ## Stage 5
 Stage 5 introduces cancellation of offscreen work. When rows move offscreen, queued and running requests are cancelled. This immediately frees execution slots for currently visible rows.
+
+## Stage 6
+Stage 6 moves image decoding off the main thread.
+Fetched data is decoded into Image on a background executor before delivery.
