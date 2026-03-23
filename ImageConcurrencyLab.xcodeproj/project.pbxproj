@@ -6,18 +6,28 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		504E8BF92F6071B100EB609A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 504E8BED2F6071B100EB609A /* README.md */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		50406D982F5DE49200DDDBE5 /* ImageConcurrencyLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageConcurrencyLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504E8BED2F6071B100EB609A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5053A3EC2F71249600E42E9A /* Exceptions for "ImageConcurrencyLab" folder in "ImageConcurrencyLab" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"App/Pipeline/Stage 4/RFC.md",
+				"App/Pipeline/Stage 5/RFC.md",
+			);
+			target = 50406D972F5DE49200DDDBE5 /* ImageConcurrencyLab */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		50406D9A2F5DE49200DDDBE5 /* ImageConcurrencyLab */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5053A3EC2F71249600E42E9A /* Exceptions for "ImageConcurrencyLab" folder in "ImageConcurrencyLab" target */,
+			);
 			path = ImageConcurrencyLab;
 			sourceTree = "<group>";
 		};
@@ -115,7 +125,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				504E8BF92F6071B100EB609A /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

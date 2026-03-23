@@ -1,13 +1,13 @@
 //
-//  Stage4Loader.swift
+//  Stage5Loader.swift
 //  ImageConcurrencyLab
 //
-//  Created by max on 20.03.2026.
+//  Created by max on 22.03.2026.
 //
 
 import Foundation
 
-actor Stage4Loader: ImageLoading {
+actor Stage5Loader: ImageLoading {
     
     private let provider: ImageDataProvider
     private let cache: ImageCache
@@ -48,6 +48,8 @@ actor Stage4Loader: ImageLoading {
                 let data = try await task.value
                 await cache.set(url, data: data)
                 
+                try Task.checkCancellation()
+                
                 finish(url, result: .success(data))
             } catch {
                 finish(url, result: .failure(error))
@@ -69,7 +71,7 @@ actor Stage4Loader: ImageLoading {
     }
 }
 
-extension Stage4Loader {
+extension Stage5Loader {
     
     func load(_ url: URL) async throws -> Data {
         if let data = await cache.get(url) {
@@ -96,12 +98,11 @@ extension Stage4Loader {
     }
     
     func markPrefetch(_ url: URL) {
-        guard prefetchQueue.firstIndex(of: url) == nil else {
-            return
-        }
         if let index = visibleQueue.firstIndex(of: url) {
             visibleQueue.remove(at: index)
             prefetchQueue.append(url)
         }
+        // Stage 5: cancel offscreen work
+        inFlightTasks[url]?.cancel()
     }
 }
