@@ -14,7 +14,6 @@ final class ImageDataProvider {
         case noData
     }
     
-    private static let latency: ContinuousClock.Instant.Duration = .milliseconds(200)
     private static let symbols = [
         "star", "heart", "bolt", "flame", "leaf", "bell", "bookmark", "paperplane",
         "cloud", "moon", "sun.max", "hare", "tortoise", "car", "bicycle", "tram",
@@ -25,7 +24,7 @@ final class ImageDataProvider {
     func fetch(url: URL) async throws -> Data {
         print("FETCH", url)
         // Latency emulation
-        try await Task.sleep(for: Self.latency)
+        try await Task.sleep(for: Constants.networkLatency)
         
         let index = abs(url.absoluteString.hashValue) % Self.symbols.count
         let symbol = Self.symbols[index]

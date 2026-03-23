@@ -13,7 +13,7 @@ actor Stage4Loader: ImageLoading {
     private let cache: ImageCache
     private var inFlightTasks: [URL: Task<Data, Error>] = [:]
     
-    private let limit = 6
+    private let limit = Constants.concurrencyLimit
     private var active = 0
     private var visibleQueue: [URL] = []
     private var prefetchQueue: [URL] = []
