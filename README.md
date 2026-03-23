@@ -14,3 +14,6 @@ Stage 3 introduces a global concurrency limiter. New fetch work is bounded by a 
 ## Stage 4
 Stage 4 introduces visible-first admission.
 Requests are split into visible and prefetch queues, and the loader always starts visible requests before prefetch requests when a slot becomes available.
+
+## Stage 5
+Stage 5 introduces cancellation of offscreen work. When rows move offscreen, queued and running requests are cancelled. This immediately frees execution slots for currently visible rows.
