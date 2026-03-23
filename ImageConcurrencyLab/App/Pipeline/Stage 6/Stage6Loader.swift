@@ -87,7 +87,7 @@ extension Stage6Loader {
         fatalError("Stage 6 provides Image version of the method")
     }
     
-    func load(_ url: URL) async throws -> Image {
+    func loadImage(_ url: URL) async throws -> Image {
         if let image = await cache.get(url) {
             return image
         }
