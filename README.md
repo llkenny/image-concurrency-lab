@@ -16,7 +16,7 @@ Stage 4 introduces visible-first admission.
 Requests are split into visible and prefetch queues, and the loader always starts visible requests before prefetch requests when a slot becomes available.
 
 ## Stage 5
-Stage 5 introduces cancellation of offscreen work. When rows move offscreen, queued and running requests are cancelled. This immediately frees execution slots for currently visible rows.
+Stage 5 introduces cancellation of running offscreen work. When rows move offscreen, active requests are cancelled, which frees execution slots for currently visible rows. Queued requests are still retained and may later run as prefetch work.
 
 ## Stage 6
 Stage 6 moves image decoding off the main thread.

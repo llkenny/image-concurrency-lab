@@ -13,6 +13,17 @@ enum PipelineMode: String, CaseIterable, Identifiable {
     case stage5Cancellation
     case stage6BackgroundDecode
     case stage7BatchedUI
+
+    static var allCases: [PipelineMode] {
+        [
+            .stage1Naive,
+            .stage2SingleFlight,
+            .stage3ConcurrencyLimit,
+            .stage4VisibleFirst,
+            .stage5Cancellation,
+            .stage6BackgroundDecode,
+        ]
+    }
     
     var id: String { rawValue }
     

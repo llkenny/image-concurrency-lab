@@ -9,13 +9,11 @@ import SwiftUI
 
 protocol ImageLoading: Sendable {
     func load(_ url: URL) async throws -> Data
+    func loadImage(_ url: URL) async throws -> Image
     
     // Stage 4+
     func markVisible(_ url: URL) async
     func markPrefetch(_ url: URL) async
-    
-    // Stage 6+
-    func load(_ url: URL) async throws -> Image
 }
 
 extension ImageLoading {
@@ -23,7 +21,15 @@ extension ImageLoading {
     func markVisible(_ url: URL) async {}
     func markPrefetch(_ url: URL) async {}
     
-    func load(_ url: URL) async throws -> Image {
-        fatalError("Not implemented")
+    func loadImage(_ url: URL) async throws -> Image {
+        let data = try await load(url)
+        guard let uiImage = UIImage(data: data) else {
+            throw ImageDecodingError.invalidData
+        }
+        return Image(uiImage: uiImage)
     }
+}
+
+enum ImageDecodingError: Error {
+    case invalidData
 }
