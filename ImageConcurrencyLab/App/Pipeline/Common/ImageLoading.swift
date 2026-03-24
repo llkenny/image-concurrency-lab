@@ -17,13 +17,17 @@ protocol ImageLoading: Sendable {
 }
 
 extension ImageLoading {
+
+    private var imageDecoder: EnhancedImageDecoder {
+        EnhancedImageDecoder()
+    }
     
     func markVisible(_ url: URL) async {}
     func markPrefetch(_ url: URL) async {}
     
     func loadImage(_ url: URL) async throws -> Image {
         let data = try await load(url)
-        let uiImage = UIImage(data: data)!
+        let uiImage = try imageDecoder.decode(data)
         return Image(uiImage: uiImage)
     }
 }
