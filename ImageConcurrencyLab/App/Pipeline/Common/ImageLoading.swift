@@ -23,16 +23,7 @@ extension ImageLoading {
     
     func loadImage(_ url: URL) async throws -> Image {
         let data = try await load(url)
-        
-        try await Task.sleep(for: Constants.decodingDelay)
-        
-        guard let uiImage = UIImage(data: data) else {
-            throw ImageDecodingError.invalidData
-        }
+        let uiImage = UIImage(data: data)!
         return Image(uiImage: uiImage)
     }
-}
-
-enum ImageDecodingError: Error {
-    case invalidData
 }

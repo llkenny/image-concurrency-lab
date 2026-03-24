@@ -6,7 +6,6 @@
 //
 
 enum Constants {
-    static let networkLatency: ContinuousClock.Instant.Duration = .milliseconds(400)
-    static let decodingDelay: ContinuousClock.Instant.Duration = .milliseconds(200)
-    nonisolated static let concurrencyLimit = 6
+    static let networkLatency: ContinuousClock.Instant.Duration = .milliseconds(600)
+    nonisolated static let concurrencyLimit = 10
 }
