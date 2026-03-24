@@ -11,6 +11,7 @@ actor Stage6Loader: ImageLoading {
     
     private let provider: ImageDataProvider
     private let cache: Stage6ImageCache
+    private let decoder: EnhancedImageDecoder
     private var inFlightTasks: [URL: Task<Image, Error>] = [:]
     
     private let limit = Constants.concurrencyLimit
@@ -20,9 +21,11 @@ actor Stage6Loader: ImageLoading {
     private var waiters: [URL: [CheckedContinuation<Image, Error>]] = [:]
     
     init(provider: ImageDataProvider,
-         cache: Stage6ImageCache) {
+         cache: Stage6ImageCache,
+         decoder: EnhancedImageDecoder = EnhancedImageDecoder()) {
         self.provider = provider
         self.cache = cache
+        self.decoder = decoder
     }
     
     private func pump() {
@@ -43,7 +46,7 @@ actor Stage6Loader: ImageLoading {
             
             try Task.checkCancellation()
             
-            let image = await decode(data)
+            let image = try await decode(data)
             await cache.set(url, image: image)
             
             return image
@@ -60,9 +63,10 @@ actor Stage6Loader: ImageLoading {
         }
     }
     
-    private func decode(_ data: Data) async -> Image {
-        await Task.detached(priority: .utility) {
-            let uiImage = UIImage(data: data)!
+    private func decode(_ data: Data) async throws -> Image {
+        let decoder = decoder
+        return try await Task.detached(priority: .utility) {
+            let uiImage = try decoder.decode(data)
             return Image(uiImage: uiImage)
         }.value
     }

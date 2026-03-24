@@ -3,17 +3,6 @@
 //  ImageConcurrencyLab
 //
 //  Created by max on 10.03.2026.
-//
-//  Minimal responsibilities:
-//  - check completed cache
-//  - check in-flight tasks
-//  - create a new in-flight task if needed
-//  - write completed data to cache
-//  - clean in-flight entry on completion
-//  Owns:
-//  - cache lookup
-//  - in-flight deduplication
-//  - task cleanup
 
 import Foundation
 

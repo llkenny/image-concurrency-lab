@@ -13,6 +13,7 @@ struct ImageRow: View {
     let loader: ImageLoading
     
     @State private var image: Image?
+    @State private var isLoading = false
 
     var body: some View {
         ZStack {
@@ -21,20 +22,28 @@ struct ImageRow: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Rectangle().fill(.gray.opacity(0.2))
+                ZStack {
+                    Rectangle().fill(.gray.opacity(0.2))
+                    if isLoading {
+                        ProgressView()
+                    }
+                }
             }
         }
         .onAppear {
             guard image == nil else { return }
             Task {
+                isLoading = true
                 await loader.markVisible(url)
 
                 image = try? await loader.loadImage(url)
+                isLoading = false
             }
         }
         .onDisappear {
             Task {
                 await loader.markPrefetch(url)
+                isLoading = false
             }
         }
     }
