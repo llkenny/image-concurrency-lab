@@ -2,8 +2,6 @@
 
 SwiftUI performance lab that demonstrates how image-loading pipeline decisions affect responsiveness, task behavior, and UI invalidation under load
 
-The lab now uses large, deterministic generated images with low fake network latency so scroll FPS reflects image decode and rendering pressure rather than mostly waiting on artificial sleeps. Those source images are preloaded once at app startup, which removes generation cost from stage-to-stage comparisons. The feed intentionally reuses a smaller image pool across many rows so stages 1-5 experience duplicate request churn, and each load performs eager decompression plus a small synthetic decode tax. Under this setup, stage 6 should show the clearest FPS improvement because decoding moves off the main thread.
-
 ## Stage 1
 Stage 1 uses row-local state and row-driven loading. Each row starts its own fetch when it appears. There is no shared cache, no in-flight deduplication, and no cancellation. As a result, repeated scrolling causes duplicate fetches and placeholder churn when rows are recreated.
 
